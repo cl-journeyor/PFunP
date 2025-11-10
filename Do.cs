@@ -2,6 +2,26 @@ namespace PFunP;
 
 public static class Do
 {
+    public static IEnumerable<T> Iterate<T>(T seed, Func<T, T> accumulator)
+    {
+        ArgumentNullException.ThrowIfNull(accumulator, nameof(accumulator));
+
+        while (true)
+        {
+            yield return seed;
+
+            seed = accumulator(seed);
+        }
+    }
+
+    public static IEnumerable<T> Repeat<T>(T item)
+    {
+        while (true)
+        {
+            yield return item;
+        }
+    }
+
     public static T Scope<T>(Func<T> supplier)
     {
         ArgumentNullException.ThrowIfNull(supplier, nameof(supplier));
